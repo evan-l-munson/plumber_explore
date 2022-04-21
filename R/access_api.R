@@ -18,7 +18,7 @@ plumber::serializer_json(data)
 
 df <- jsonlite::unbox(data.frame(data))
 
-
+plumb_api("plumber", "04-mean-sum") %>% pr_run(port = 8000)
 
 
 
