@@ -29,3 +29,53 @@ gapminder %>%
     lifeExp > 80,
     pop > 10000
   )
+
+
+
+
+
+response <- httr::GET("http://httpbin.org/get")
+response
+
+results <- httr::content(x = response)
+
+something <- jsonlite::fromJSON(rawToChar(results))
+
+jsonlite::fromJSON(response)
+
+something_more <- jsonlite::flatten(as.data.frame(something))
+
+
+
+
+
+# something else4 ---------------------------------------------------------
+
+# this works
+new_url <- "https://eu.httpbin.org/get?foo=123"
+
+req <- curl::curl_fetch_memory(new_url)
+str(req)
+curl::parse_headers(req$headers)
+
+tmp <- tempfile()
+curl::curl_download(url = new_url, destfile = tmp)
+data <- jsonlite::prettify(readLines(tmp))
+
+results <- jsonlite::fromJSON(data)
+results2 <- jsonlite::flatten(as.data.frame(results))
+View(results2)
+
+
+# Another thing -----------------------------------------------------------
+
+req_2 <- httr::GET(url = new_url)
+str(req_2)
+content <- httr::content(x = req_2)
+
+jsonlite::prettify(readLines(content))
+results_another <- jsonlite::fromJSON(content)
+
+
+
+
